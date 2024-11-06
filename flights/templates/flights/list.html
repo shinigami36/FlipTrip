@@ -1,0 +1,39 @@
+<!-- flights/templates/flights/list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Flights</title>
+</head>
+<body>
+    <h1>Registered Flights</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Airline</th>
+                <th>Source City</th>
+                <th>Destination City</th>
+                <th>Price</th>
+                <th>Meals</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for flight in flights %}
+            <tr>
+                <td>{{ flight.airline_name }}</td>
+                <td>{{ flight.source_city }}</td>
+                <td>{{ flight.destination_city }}</td>
+                <td>{{ flight.price }}</td>
+                <td>{{ flight.has_meals|yesno:"Yes,No" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No flights available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'search_flights' %}">Back to Search</a>
+</body>
+</html>

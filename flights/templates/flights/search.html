@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Flights</title>
+</head>
+<body>
+    <h1>Search for Flights</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="source_city">Source City (3-letter code):</label>
+            <input type="text" id="source_city" name="source_city" required>
+        </div>
+        <div>
+            <label for="destination_city">Destination City (3-letter code):</label>
+            <input type="text" id="destination_city" name="destination_city" required>
+        </div>
+        <div>
+            <label for="meals">Include Only Flights with Meal Service:</label>
+            <input type="checkbox" id="meals" name="meals">
+        </div>
+        <button type="submit">Search Flights</button>
+    </form>
+
+    {% if search_results %}
+        <h2>Search Results:</h2>
+        <div>
+            {% for flight in search_results %}
+                <p><strong>{{ flight.airline_name }}</strong>: {{ flight.source_city }} to {{ flight.destination_city }} for {{ flight.price }}</p>
+            {% endfor %}
+        </div>
+    {% elif search_query %}
+        <p>No flights found.</p>
+    {% endif %}
+</body>
+</html>
